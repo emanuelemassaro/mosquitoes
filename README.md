@@ -35,3 +35,8 @@ We generate a square grid of `self.gs = 20` cells per side (that you can change)
         self.N = self.nc*self.S
         self.hc = []  ## home work
         self.wc = []  ## home work
+In this first part the notebook generates the network of movement and the number of initial aquatic and adult mosquitoes in ech cell. 
+
+        net.to_csv('Code/networkSimulations/realNetwork.dat', sep=' ', header=None, index=None)
+        adult.to_csv('Code/Initial/adult.dat',  sep=' ', header=None, index=None)
+        aquatic.to_csv('Code/Initial/aquatic.dat',  sep=' ', header=None, index=None)
