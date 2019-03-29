@@ -23,6 +23,8 @@ The Notebook allow to:
 3. Analyze the results
 
 ### 2.1 Create the input for the simulations
+We generate a square grid of `self.gs = 20` cells per side (that you can change) in which `self.nc = 100` agents are placed. The distance between two cells is `self.r0 = 100`. Agent are placed in the grid where the distance home-work follows a truncated Levy-flight distribution $Y-f(x)$
+
         self.r0 = 100  ## Distance between cells
         self.a = 2
         self.k = 1500
