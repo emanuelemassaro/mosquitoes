@@ -24,7 +24,7 @@ The Notebook allow to:
 3. Analyze the results
 
 ### 2.1 Create the input for the simulations
-We generate a square grid of `self.gs = 20` cells per side (that you can change) in which `self.nc = 100` agents are placed. The distance between two cells is `self.r0 = 100`. Agent are placed in the grid where the distance home-work follows a truncated Levy-flight distribution `p(r) \sim (r + self.r0)^{-self.a}*exp(−r/self.k).`
+I generate a square grid of `self.gs = 20` cells per side (that you can change) in which `self.nc = 100` agents are placed. The distance between two cells is `self.r0 = 100`. Agent are placed in the grid where the distance home-work follows a truncated Levy-flight distribution `p(r) \sim (r + self.r0)^{-self.a}*exp(−r/self.k).`
 
         self.r0 = 100  ## Distance between cells
         self.a = 2
@@ -40,3 +40,12 @@ In this first part the notebook generates the network of movement and the number
         net.to_csv('Code/networkSimulations/realNetwork.dat', sep=' ', header=None, index=None)
         adult.to_csv('Code/Initial/adult.dat',  sep=' ', header=None, index=None)
         aquatic.to_csv('Code/Initial/aquatic.dat',  sep=' ', header=None, index=None)
+        
+I also set `10` initial exposed individuals in the central cell
+
+        ## define central cell cc
+        cc = int((mos.gs*mos.gs) / 2 + mos.gs/2)
+        initI = pd.DataFrame()
+        initI['cell']=cc
+        initI['I']=10
+        initI.to_csv('Code/Initial/initial.dat',  sep=' ', header=None, index=None)
