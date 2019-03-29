@@ -1,5 +1,6 @@
 # Mosquito dynamics with human mobility
 
+In this work we explore the effects of human mobility on the dispersion of a vector borne disease using an agent based model. I combine an already presented stochastic model for dengue with a simple representation of the daily motion of humans on a schematic city of `20x20` blocks with `100` inhabitants in each block. The pattern of motion of the individuals is described by the connection between different blocks and the length distribution of the movements follows a truncated Levy Fligth distribution. 
 
 This repository contains:
   
@@ -23,9 +24,7 @@ The Notebook allow to:
 3. Analyze the results
 
 ### 2.1 Create the input for the simulations
-We generate a square grid of `self.gs = 20` cells per side (that you can change) in which `self.nc = 100` agents are placed. The distance between two cells is `self.r0 = 100`. Agent are placed in the grid where the distance home-work follows a truncated Levy-flight distribution `$f_x$`
-
-
+We generate a square grid of `self.gs = 20` cells per side (that you can change) in which `self.nc = 100` agents are placed. The distance between two cells is `self.r0 = 100`. Agent are placed in the grid where the distance home-work follows a truncated Levy-flight distribution `p(r) \sim (r + self.r0)^{-self.a}*exp(−r/self.k).`
 
         self.r0 = 100  ## Distance between cells
         self.a = 2
