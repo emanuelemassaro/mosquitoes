@@ -49,3 +49,27 @@ I also set `10` initial exposed individuals in the central cell
         initI['cell']=cc
         initI['I']=10
         initI.to_csv('Code/Initial/initial.dat',  sep=' ', header=None, index=None)
+        
+### 2.2 Compile and run the C++ program
+First of all we need to set the parameters of the transition rates of the model as well as the number of simulations `s` for each run and the bite rate `br` and the maximum number of mosquito per person in each cell `xv`.
+
+        s = 10   ## number of simulations
+        xv = 0.1 ## mosquito per humans
+        br = 0.25 ## bite rate
+        #### HUMANS (rate of infection)
+        SE = 0.5 ## Humans: S ---> E
+        EI = 0.15 ## Humans: E ---> I
+        IR = 0.143 ## Humans: E ---> I
+        #### ADULT MOSQUIT (rate of infection and mortality rate)
+        SEm = 0.75;  ## V: S->E
+        EIm = 0.1;   ## V: E->I
+        MUv = 0.04;  ## Probability to die for adult mosquito
+        ### AQUATIC  (rate of transition aquatic to adult and mortality rate)
+        MUa = 0.04;  ## Probability to die for acquatic mosquito
+        ASm = 0.04;  
+        VA = 0.4;   ## V: A->V
+        
+Then you we compile and run (`-np 1` are the number of processors used)
+
+        ! mpicxx -o main main.cpp Node.cpp Agent.cpp -std=gnu++11
+        ! mpirun -np 1 ./main {s} {xv} {br} {SE} {EI} {IR} {SEm} {EIm} {MUv} {MUa} {ASm} {VA}
