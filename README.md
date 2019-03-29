@@ -1,5 +1,7 @@
 # Mosquito dynamics with human mobility
 
+I developed a python notebook that allow the user to run a MPI C++ simulations to study an agent based model for modelling the interplay between mosquito-borne disease and human mobility. 
+
 In this work we explore the effects of human mobility on the dispersion of a vector borne disease using an agent based model. I combine an already presented stochastic model for dengue with a simple representation of the daily motion of humans on a schematic city of `20x20` blocks with `100` inhabitants in each block. The pattern of motion of the individuals is described by the connection between different blocks and the length distribution of the movements follows a truncated Levy Fligth distribution. 
 
 This repository contains:
