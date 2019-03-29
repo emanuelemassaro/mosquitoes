@@ -13,7 +13,7 @@
 void initialvector(double xv, Node *K, Agent *A)
 {
 	char fileG[1024];
-	sprintf(fileG, "Initial/aquatic%d_%.2f_%.1f.dat", 2013, xv, 10.0);
+	sprintf(fileG, "Initial/aquatic.dat");
 	FILE *f0 = fopen(fileG, "r"); // Binary File Home Work
 	// Read aquatic mosquito from the previous year
 	while (!feof(f0))
@@ -26,7 +26,7 @@ void initialvector(double xv, Node *K, Agent *A)
 	fclose(f0);
 
 
-	sprintf(fileG, "Initial/adult%d_%.2f%.1f.dat", 2013, xv, 10.0);
+	sprintf(fileG, "Initial/adult.dat");
 	f0 = fopen(fileG, "r"); // Binary File Home Work
 	// Read Adult mosquito from the previous year
 	int sumMosquito = 0;

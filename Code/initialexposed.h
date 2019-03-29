@@ -1,4 +1,3 @@
-
 #include "stdafx.h"
 #include <mpi.h>
 #include <cassert>
@@ -9,16 +8,16 @@
 #include "Node.h"
 #include "Agent.h"
 
-
 void initialexposed(int year, Node *K, Agent *A)
 {
 	
 	// Load Initial Exposed
 	char fileI[1024];
 	int yeah = year;
-	sprintf(fileI, "Initial/initial%d.dat", year);
+	sprintf(fileI, "Initial/initial.dat");
 	FILE *f1 = fopen(fileI, "r"); // Binary File Home Work
 	
+	printf("READ \n");
 	int cases = 0;
 	int cell = 0;
 	int initial_infected = 0;
@@ -28,10 +27,11 @@ void initialexposed(int year, Node *K, Agent *A)
 		fscanf(f1,"%d %d", &cell, &cases);
 		for (int k = 0; k < cases; k++)
 		{
+			printf("%d %d\n", cell, cases);
 			int agent = K[cell].home[k];
-			A[agent].status  = 2;
+			A[agent].status  = 1;
 			initial_infected += 1;
-			K[cell].i++;
+			K[cell].e++;
 		}
 	}
 	fclose(f1);

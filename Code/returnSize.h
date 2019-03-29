@@ -16,7 +16,9 @@ void returnSize(int& V, int& N)
 	{
 		N += 1;
 		int i, j;
+		
 		fscanf(f, "%d %d", &i, &j);
+		
 		if (i > V)
 			V = i;
 		if (j > V)

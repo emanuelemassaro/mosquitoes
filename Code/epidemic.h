@@ -34,7 +34,6 @@ void epidemic(Node *K, Agent *A, int N, int V, int day,
     double p;
     for (int i = 0; i < V; i++)
     {
-        
         tmp = K[i].home;
         if (day == 1) tmp = K[i].work;  // if day tmp = work else tmp = home
         
@@ -43,30 +42,38 @@ void epidemic(Node *K, Agent *A, int N, int V, int day,
         int Smosquito = K[i].Smosquito;
         int Emosquito = K[i].Emosquito;
         int mosquito =  K[i].Emosquito + K[i].Imosquito + K[i].Smosquito;
-
-        const double rsem = (double) rateSEm * (biteRate) * Smosquito * K[i].i / tmp.size();
+		
+        double rsem = (double) rateSEm * (biteRate) * Smosquito * K[i].i / tmp.size();
         const double reim = (double) rateEIm;
+        
+
  
         // mosquito population (according to: Lourenço, J., & Recker, M. (2014).
         // The 2012 Madeira Dengue Outbreak: Epidemiological Determinants and Future Epidemic Potential.
         // PLoS Neglected Tropical Diseases, 8(8).
         //		http://doi.org/10.1371/journal.pntd.0003083 )
         // 1. calculate mosquitos that die (from S,E and I)
+        //rateMUv = 0.09; //mortality rate 
         binomial_distribution<int> distSd(Smosquito, rateMUv);
         binomial_distribution<int> distEd(Emosquito, rateMUv);
         binomial_distribution<int> distId(Imosquito, rateMUv);
+        
         int tmp0 = distSd(mt_engine1);
         K[i].Smosquito -= tmp0;
-        
         tmp0 = distEd(mt_engine1);
         K[i].Emosquito -= tmp0;
-        
         tmp0 = distId(mt_engine1);
         K[i].Imosquito -= tmp0;
         
+        
+
         // 2. calculate transitions according to the rates
-        binomial_distribution<int> distSE(K[i].Smosquito, rsem);
+        if (rsem > 1){
+			rsem = 0.99;
+		}
+        binomial_distribution<int> distSE(K[i].Smosquito, rsem);        
         tmp0 = distSE(mt_engine1); // mosquitos that survived and transition S->E
+        
         binomial_distribution<int> distEI(K[i].Emosquito, reim);
         int tmp1 = distEI(mt_engine1); // mosquitos that survived and transision E->I 
         K[i].Smosquito -= tmp0; // transition
@@ -85,6 +92,7 @@ void epidemic(Node *K, Agent *A, int N, int V, int day,
         // Eq. (6)
         // 3.1. aquatic mosquitos that die
         binomial_distribution<int> distAd(Amosquito, rateMUa);
+
         tmp0 = distAd(mt_engine1);
         K[i].Amosquito -= tmp0;
         // 2. transision A->S
@@ -109,7 +117,6 @@ void epidemic(Node *K, Agent *A, int N, int V, int day,
         if(K[i].Amosquito > limitK2) K[i].Amosquito = limitK2;
         K[i].mosquito = K[i].Emosquito + K[i].Imosquito + K[i].Smosquito;
  
-		
 		const double rse = (double) rateSE * Imosquito * K[i].s * biteRate / tmp.size();
         const double rei = (double) rateEI;
         const double rir = (double) rateIR;
@@ -117,7 +124,6 @@ void epidemic(Node *K, Agent *A, int N, int V, int day,
         
         for (int j = 0; j < tmp.size(); j++)
         {
-            
             int tmpNode = tmp[j];
             switch (A[tmpNode].status)
             {
