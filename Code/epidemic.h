@@ -47,13 +47,8 @@ void epidemic(Node *K, Agent *A, int N, int V, int day,
         const double reim = (double) rateEIm;
         
 
- 
-        // mosquito population (according to: Lourenço, J., & Recker, M. (2014).
-        // The 2012 Madeira Dengue Outbreak: Epidemiological Determinants and Future Epidemic Potential.
-        // PLoS Neglected Tropical Diseases, 8(8).
-        //		http://doi.org/10.1371/journal.pntd.0003083 )
+
         // 1. calculate mosquitos that die (from S,E and I)
-        //rateMUv = 0.09; //mortality rate 
         binomial_distribution<int> distSd(Smosquito, rateMUv);
         binomial_distribution<int> distEd(Emosquito, rateMUv);
         binomial_distribution<int> distId(Imosquito, rateMUv);
@@ -80,16 +75,8 @@ void epidemic(Node *K, Agent *A, int N, int V, int day,
         K[i].Emosquito += tmp0; // S->E
         K[i].Emosquito -= tmp1; // transition
         K[i].Imosquito += tmp1; // E->I
-        
-        /* -- this replaced by Amosquitos
-         binomial_distribution<int> distIR(Imosquito, rirm);
-         tmp0 = distIR(mt_engine);
-         K[i].Imosquito -= tmp0;
-         K[i].Smosquito += tmp0;
-         */
-        
+
         // 3. Advance aquatic mosquitos
-        // Eq. (6)
         // 3.1. aquatic mosquitos that die
         binomial_distribution<int> distAd(Amosquito, rateMUa);
 
@@ -107,9 +94,7 @@ void epidemic(Node *K, Agent *A, int N, int V, int day,
         // 3.2.1 calculate "local" K limit value -> include green area and population
         double limitK2 =  xv * (double)( K[i].work.size() + K[i].home.size() ) / 2.0;
         
-        
-        // factor for the daily rain should be here
-        // !! TODO: scale limitK with green area and rainfall !!
+
   
         poisson_distribution<int> distVA( ((double) mosquito) * rateVA * ( 1 - ((double)Amosquito) / limitK2 ) ); //
         tmp0 = distVA(mt_engine1);
