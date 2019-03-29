@@ -17,7 +17,6 @@ void initialexposed(int year, Node *K, Agent *A)
 	sprintf(fileI, "Initial/initial.dat");
 	FILE *f1 = fopen(fileI, "r"); // Binary File Home Work
 	
-	printf("READ \n");
 	int cases = 0;
 	int cell = 0;
 	int initial_infected = 0;
@@ -27,7 +26,6 @@ void initialexposed(int year, Node *K, Agent *A)
 		fscanf(f1,"%d %d", &cell, &cases);
 		for (int k = 0; k < cases; k++)
 		{
-			printf("%d %d\n", cell, cases);
 			int agent = K[cell].home[k];
 			A[agent].status  = 1;
 			initial_infected += 1;

@@ -28,12 +28,12 @@ using namespace std;
 // Random stuff
 mt19937 mt_engine;
 uniform_real_distribution<double> real_distribution;
-void perform_process(long total_iterations, int current_rank, int world_size);
+void perform_process(long total_iterations, int current_rank, int world_size, double xv_init, double br_init);
 char fN[TASK_TAG];
 bool nompi = false;
 
 
-void perform(long total_iterations, int current_rank, int world_size)
+void perform(long total_iterations, int current_rank, int world_size, double xv_init, double br_init)
 {
     int V = 0;
 	int N = 0;
@@ -54,9 +54,8 @@ void perform(long total_iterations, int current_rank, int world_size)
 
     
     // Bite rate and mosquitoes per humans
-    vector<double> XV({0.1});  // number of mosquito per human  ---> P1
-    vector<double> BR({0.2});  // biterate (per day!) ----> P2
-    
+    vector<double> XV({xv_init});  // number of mosquito per human  ---> P1
+    vector<double> BR({br_init});  // biterate (per day!) ----> P2
     
     
     int total_runs = total_iterations*XV.size()*BR.size();
@@ -76,6 +75,7 @@ void perform(long total_iterations, int current_rank, int world_size)
 		FILE * file;
 		file = fopen(fileOutput, "r");
 		if (file){
+			printf("The file already results/run_%d_%lf_%lf.csv already exists \n", i, xv, biteRate);
 			fclose(file);
 		}else{
             Node  *K = initialize_nodes(N, V); // Initialize Nodes
@@ -85,12 +85,10 @@ void perform(long total_iterations, int current_rank, int world_size)
             cout << "Node #" << current_rank << ", iteration " << i << ", p1 " << p1 << " (xv: " << XV[p1] << "), p2 " << p2 << " (br: " << BR[p2] << ")\n";
             
             int year = 2013;
-            printf("READ \n");
             initialexposed(year, K, A);  // read the initial number of infected for that year
             
             initialvector(xv, K, A);  // read the initial number of mosquito for that year
             
-
             FILE *f = fopen(fileOutput, "w");
             fprintf(f, "Node S E I R A M IM EM S Time\n");
             
@@ -133,12 +131,8 @@ void perform(long total_iterations, int current_rank, int world_size)
                         fprintf(f, "%d %d %d %d %d %d %d %d %d %d %d\n", v, K[v].s, K[v].e, K[v].i, K[v].r, K[v].Amosquito, K[v].mosquito, K[v].Imosquito, K[v].Emosquito, K[v].Smosquito, t/2);
                         IM += K[v].i;
                     }
-                    printf("Day %d , Infected %d\n", t/2, IM);
                     count=0;
                 }
-                
-
-                
             }
 
             fclose(f);
@@ -152,18 +146,15 @@ void perform(long total_iterations, int current_rank, int world_size)
 int main(int argc, char* argv[])
 {
     
-    
-    // Determine the number of iterations to be done using user input
     long total_iterations = 0;
-    // parameters: Iyear, Inet
-    // command line should be
-    // mpirun -np 15 ./sim2013SD 15 *2013* *1*
-    // where 15 is total_iterations, *2013* is Iyear and *1* is  Inet
-
-    total_iterations = strtol(argv[1], NULL, 10);
-
+    double xv_init, br_init;
     
-
+    total_iterations = strtol(argv[1], NULL, 10);
+    
+    xv_init = atof(argv[2]);
+    
+    br_init = atof(argv[3]);
+    
     
     if (total_iterations == 0)
     {
@@ -203,7 +194,7 @@ int main(int argc, char* argv[])
     
     freopen(string2, "w", stderr );
     // Run the main process
-    perform(total_iterations, current_rank, world_size);
+    perform(total_iterations, current_rank, world_size, xv_init, br_init);
     
     
     // Finish and produce summary
