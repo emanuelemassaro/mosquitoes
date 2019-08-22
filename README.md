@@ -55,7 +55,7 @@ I also set `10` initial exposed individuals in the central cell
         initI.to_csv('Code/Initial/initial.dat',  sep=' ', header=None, index=None)
         
 ### 2.2 Compile and run the C++ program
-First of all we need to set the parameters of the transition rates of the model as well as the number of simulations `s` for each run and the bite rate `br` and the maximum number of mosquito per person in each cell `xv`.
+First of all we need to set the parameters of the transition rates of the model as well as the number of simulations `s` for each run and the bite rate `br` and the maximum number of mosquito per person in each cell `xv`. All the parameters here are constant but some of them could be function of the daily temperature.
 
         s = 10   ## number of simulations
         xv = 0.1 ## mosquito per humans
