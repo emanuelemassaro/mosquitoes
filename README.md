@@ -1,6 +1,6 @@
 # Mosquito born disease dynamics with human mobility
 
-I developed a python notebook that allow the user to run a MPI C++ simulations from zero to study an agent based model for modelling the interplay between mosquito-borne disease and human mobility. 
+We developed a python notebook that allow the user to run a MPI C++ simulations from zero to study an agent based model for modelling the interplay between mosquito-borne disease and human mobility. 
 
 ### IMPORTANT: The notebook defines the input parameters and files for the simulations, compile and run the software and finally analyze the results.
 
