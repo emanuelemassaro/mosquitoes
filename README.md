@@ -82,5 +82,5 @@ Then you we compile and run (`-np 1` are the number of processors used)
 ## 3 Results
 
 
-![GitHub Logo](/images/logo.png)
+![GitHub Logo](download.png)
 Format: ![Alt Text](url)
