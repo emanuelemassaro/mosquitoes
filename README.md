@@ -77,3 +77,10 @@ Then you we compile and run (`-np 1` are the number of processors used)
 
         ! mpicxx -o main main.cpp Node.cpp Agent.cpp -std=gnu++11
         ! mpirun -np 1 ./main {s} {xv} {br} {SE} {EI} {IR} {SEm} {EIm} {MUv} {MUa} {ASm} {VA}
+        
+        
+## 3 Results
+
+
+![GitHub Logo](/images/logo.png)
+Format: ![Alt Text](url)
