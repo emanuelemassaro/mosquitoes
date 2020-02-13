@@ -85,5 +85,7 @@ In this figure we report the spatio-temporal distribution of the disease outbrea
 
 The city is composed by 20x20 cells where 100 individuals live in each cell. The 20% of individuals live and work in their cell while the 80% work in a cell that have a distance following a Levy-Flight distribution.
 
+As intial condition, 5 exposed humans are placed in the central cell.
+
 ![GitHub Logo](download.png)
 
